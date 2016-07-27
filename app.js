@@ -30,6 +30,7 @@ angular.module('CARD', ['ngPostMessage'])
         $scope.gap = 5;
         $scope.query="";
 
+
         $scope.columns = [
             {
                 title: "Date"
@@ -86,6 +87,11 @@ angular.module('CARD', ['ngPostMessage'])
             if(checkIfDataExists($scope,this.n)) $scope.currentPage = this.n;
             else getRegularResponse($scope,$http,$scope.query, this.n);
         };
+
+        $scope.queryResults= function(queryString){
+            console.log("Query String: "+queryString);
+            getInitialResponse($scope,$http,queryString);
+        }
     });
 
 function getInitialResponse($scope, $http, query) {
@@ -141,15 +147,9 @@ function getRegularResponse($scope, $http, query, pageNumber) {
 
     $http(resultsReq).then(function success(response) {
         $scope.hideTable = true;
-        // $scope.results = response.data.results;
         var res = response.data.results;
-        // $scope.total = response.data.hitCount;
-        // $scope.itemsPerPage = response.data.offset;
-        console.log("Per page: "+$scope.itemsPerPage);
-        console.log("Total: "+$scope.total);
         $scope.pagedItems[pageNumber] = res;
         $scope.currentPage = pageNumber;
-        // setPagingLength($scope);
     }, function error(response) {
     });
 }

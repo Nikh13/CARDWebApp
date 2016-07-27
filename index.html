@@ -23,6 +23,12 @@
         frameborder="0" height="500"></iframe>
 
 <div ng-controller="ResponseController">
+    <form ng-show="hideTable" class="navbar-form" align="center" ng-submit="queryResults(queryString)">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" ng-model="queryString">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
     <table ng-show="hideTable" class="table table-striped table-condensed table-hover">
         <thead>
         <tr>
