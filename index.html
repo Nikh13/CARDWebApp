@@ -1,0 +1,69 @@
+<HTML ng-app="CARD">
+<HEAD>
+    <TITLE>CARD Test</TITLE>
+</HEAD>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+      integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+<script src="bower_components/angular-post-message/src/angular-post-message.js"></script>
+
+
+<BODY BGCOLOR="FFFFFF">
+
+<iframe class="embed-responsive-item col-xs-12 text-center"
+        src="http://10.76.35.197:8080/pentaho/api/repos/%3Apublic%3ASteel%20Wheels%3ACARDDashboard.wcdf/generatedContent?ts=1468439573857"
+        frameborder="0" height="500"></iframe>
+
+<div ng-controller="ResponseController">
+    <table ng-show="hideTable" class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th ng-repeat="c in columns">{{ c.title }}
+            </th>
+        </tr>
+	</thead>
+	<tfoot>
+      <td colspan="6">
+        <div class="pagination pull-right">
+          <ul>
+            <li ng-class="{disabled: currentPage == 0}">
+              <a href ng-click="prevPage()">« Prev</a>
+            </li>
+
+            <li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) " ng-class="{active: n == currentPage}" ng-click="setPage()">
+              <a href ng-bind="n + 1">1</a>
+            </li>
+
+            <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+              <a href ng-click="nextPage()">Next »</a>
+            </li>
+          </ul>
+        </div>
+        </td>
+       </tfoot>
+        <tbody>
+        <tr ng-repeat="r in results">
+            <td>{{ r.metadata.card_date[0] }}</td>
+            <td>{{ r.title }}</td>
+            <td><a ng-href="{{ r.link }}" style="cursor:pointer">{{ r.link }}</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--<p id="response">HCI Response:-->
+
+</BODY>
+
+<script language="javascript" type="text/javascript" src="app.js"></script>
+<script language="javascript" type="text/javascript">
+    console.log("Parent: initiated");
+</script>
+
+</HTML>

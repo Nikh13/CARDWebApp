@@ -1,0 +1,23 @@
+{
+  "name": "CARDWebApp",
+  "authors": [
+    "Nikh13 <nikhil.loney@gmail.com>"
+  ],
+  "description": "Front-end web app for CARD",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-post-message": "^1.3.1",
+    "bootstrap": "^3.3.6"
+  }
+}
