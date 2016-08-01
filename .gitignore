@@ -11,7 +11,7 @@
 .idea/jsLibraryMappings.xml
 
 # Bower
-bower_components
+# bower_components
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
