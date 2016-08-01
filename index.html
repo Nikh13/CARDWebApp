@@ -14,6 +14,7 @@
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
 <script src="bower_components/angular-post-message/src/angular-post-message.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
 
 <BODY BGCOLOR="FFFFFF">
@@ -23,11 +24,15 @@
         frameborder="0" height="500"></iframe>
 
 <div ng-controller="ResponseController">
-    <form ng-show="hideTable" class="navbar-form" align="center" ng-submit="queryResults(queryString)">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search" ng-model="queryString">
+    <form ng-show="hideTable" class="navbar-form" align="center" ng-submit="queryResults(queryString)" role="search">
+        <!--<i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>-->
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" ng-model="queryString"
+                   uib-typeahead="suggestion for suggestion in getSuggestions($viewValue)">
+            <div class="input-group-btn">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
     </form>
     <table ng-show="hideTable" class="table table-striped table-condensed table-hover">
         <thead>
@@ -65,7 +70,6 @@
         </tbody>
     </table>
 </div>
-<!--<p id="response">HCI Response:-->
 
 </BODY>
 

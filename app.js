@@ -18,10 +18,11 @@ function getAuthCode($scope, $http) {
     });
 }
 
-angular.module('CARD', ['ngPostMessage'])
+angular.module('CARD', ['ngPostMessage','ui.bootstrap'])
     .controller('ResponseController', function ($scope, $http) {
         $scope.hideTable = false;
-        $scope.results = [];
+        $scope.suggestionResults = ['A','B','C','D'];
+        $scope.results=[];
         $scope.pagedItems = [];
         $scope.numberOfPages = 0;
         $scope.currentPage = 0;
@@ -29,7 +30,6 @@ angular.module('CARD', ['ngPostMessage'])
         $scope.total = 0;
         $scope.gap = 5;
         $scope.query="";
-
 
         $scope.columns = [
             {
@@ -46,7 +46,7 @@ angular.module('CARD', ['ngPostMessage'])
 
         $scope.$root.$on('$messageIncoming', function (event, data) {
             var filter = "card_" + data.name + ":" + data.value;
-            document.getElementById("response").innerHTML = filter;
+            console.log("Filter: "+filter);
             $scope.query = filter;
             getInitialResponse($scope, $http, filter);
         });
@@ -92,6 +92,27 @@ angular.module('CARD', ['ngPostMessage'])
             console.log("Query String: "+queryString);
             getInitialResponse($scope,$http,queryString);
         }
+
+        $scope.getSuggestions = function(val) {
+            var url = "http://10.76.35.197/node/suggestions";
+            var suggestionsReq = {
+                method: 'POST',
+                url: url,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                transformRequest: function (obj) {
+                    var str = [];
+                    for (var p in obj)
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
+                data: {authCode: authToken, queryString: val}
+            };
+            return $http(suggestionsReq).then(function(response){
+                return response.data.map(function(item){
+                    return item.queryString;
+                });
+            });
+        };
     });
 
 function getInitialResponse($scope, $http, query) {
