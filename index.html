@@ -54,7 +54,7 @@
                         <a href ng-bind="n + 1">1</a>
                     </li>
 
-                    <li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+                    <li ng-class="{disabled: (currentPage) == numberOfPages - 1}">
                         <a href ng-click="nextPage()">Next &raquo;</a>
                     </li>
                 </ul>

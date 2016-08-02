@@ -60,7 +60,8 @@ angular.module('CARD', ['ngPostMessage','ui.bootstrap'])
 
             if (size < end) {
                 end = size;
-                start = size - $scope.gap;
+                if(size-$scope.gap>=0)
+                    start = size - $scope.gap;
             }
             for (var i = start; i < end; i++) {
                 ret.push(i);
@@ -135,6 +136,10 @@ function getInitialResponse($scope, $http, query) {
     };
 
     $http(resultsReq).then(function success(response) {
+        $scope.pagedItems = [];
+        $scope.numberOfPages = 0;
+        $scope.currentPage = 0;
+        $scope.itemsPerPage = 0;
         $scope.hideTable = true;
         $scope.results = response.data.results;
         var res = response.data.results;
@@ -142,9 +147,9 @@ function getInitialResponse($scope, $http, query) {
         $scope.itemsPerPage = response.data.offset;
         console.log("Per page: "+$scope.itemsPerPage);
         console.log("Total: "+$scope.total);
+        setPagingLength($scope);
         $scope.pagedItems[0] = res;
         // myFunction(JSON.stringify(response));
-        setPagingLength($scope);
     }, function error(response) {
     });
 }
